@@ -36,7 +36,7 @@ Out: the ranked top-10 files a developer would touch (`AuraPower.java`,
 will create.
 
 **2. Brain (14B orchestrator).** Intent plus retrieved context to a file-target plan.
-Precision 0.75, against Opus at 0.45. In: the intent and those file skeletons. Out:
+Precision 0.85, against Opus at 0.45. In: the intent and those file skeletons. Out:
 `AuraPower.java [modify]: guard isNPC() before the pull`. It targets the work and refuses
 vague asks; it does not write the code.
 
