@@ -76,9 +76,9 @@ recall because it over-names, listing about twice as many files, so it catches m
 wrong more often. On precision, the metric that punishes confident-wrong, a small
 specialist beats the frontier model. With n=60, treat ±0.02 as noise.
 
-It is honest because the ground truth is what a real change did, not a token-overlap proxy,
-and the context fed in is exactly what retrieval surfaces (recall@10 = 92%), so it measures
-comprehension, not memorization. This is one of five axes in a unified harness that runs
+Two things keep it from gaming itself: the ground truth is what a real change did, not a
+token-overlap proxy, and the context fed in is exactly what retrieval surfaces
+(recall@10 = 92%), so it measures comprehension, not memorization. This is one of five axes in a unified harness that runs
 into a single versioned leaderboard and doubles as a regression gate.
 
 ## Where it's going
