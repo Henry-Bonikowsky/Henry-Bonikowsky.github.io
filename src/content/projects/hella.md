@@ -7,10 +7,10 @@ kind: model stack · LLM training
 status: Active
 stack: [Python, PyTorch, unsloth, SFT + GRPO, LoRA, vLLM, Ollama]
 metrics:
-  - { value: "0.75", label: "plan precision (Opus 0.45)" }
-  - { value: "6/6", label: "small features compiled" }
+  - { value: "0.85", label: "plan precision (Opus 0.45)" }
+  - { value: "98%", label: "grounding" }
   - { value: "5", label: "specialist models" }
-summary: A code-synthesis stack for Minecraft plugin development. Five narrow models (retrieval, a 14B orchestrator, a GRPO-trained coder, a decomposer, an edit model) and a composer that chains them, so a plain-English spec goes in and a built, compiling Bukkit plugin comes out.
+summary: A code-synthesis stack for Minecraft plugin development. Five narrow models and a composer chain a plain-English spec into a compiling Bukkit plugin. Its 14B Brain plans which files a change touches at 0.85 precision on a held-out benchmark of real commits, where Opus gets 0.45.
 featured: true
 ---
 
@@ -72,22 +72,27 @@ commit SHA, with the files each commit actually changed as ground truth. Plus 4 
 probes (real repo, unlocatable intent) to test whether it refuses instead of guessing.
 
 **Grading is pure git, no model-as-judge.** Parse the named files, compare to what the
-commit really touched (precision, recall, F1), check the names are real (grounding), check
-the probes (abstention). Same prompt, context, and grader across all three arms.
+commit really touched (precision, recall), check the names are real (grounding), check the
+probes (abstention). Same prompt, context, and grader across every variant.
 
-| metric | Hella | Opus | base |
-|---|---|---|---|
-| **precision** | **0.747** | 0.454 | 0.239 |
-| recall | 0.612 | 0.692 | 0.268 |
-| **F1** | **0.638** | 0.511 | 0.214 |
-| **grounding** | **0.961** | 0.933 | 0.952 |
-| abstention | 3/4 | 4/4 | 1/4 |
-| acted | 60/60 | 58/60 | 59/60 |
+| variant | precision | recall | grounding | abstention | files named |
+|---|---|---|---|---|---|
+| base (no adapter) | 0.239 | 0.268 | 95% | 1/4 | 84 |
+| Hella, SFT | 0.747 | 0.612 | 96% | 3/4 | 102 |
+| **Hella, GRPO** | **0.850** | 0.572 | **98%** | 2/4 | 60 |
+| Opus | 0.454 | 0.692 | 93% | 4/4 | 195 |
 
-**The read.** Hella wins precision (0.75 vs 0.45) and F1 by being surgical. Opus wins
-recall because it over-names, listing about twice as many files, so it catches more but is
-wrong more often. On precision, the metric that punishes confident-wrong, a small
-specialist beats the frontier model. With n=60, treat ±0.02 as noise.
+**The read.** Training took precision from 0.24 to 0.75 to 0.85, across the base model,
+supervised fine-tuning, and a GRPO stage. The GRPO model lands at 0.85, close to twice
+Opus, and it is surgical: 60 files named across 60 intents, about one each, where Opus
+sprays 195. Grounding reaches 98%, so it almost never names a file that does not exist.
+Opus wins recall by over-naming, which catches more real files but is wrong far more often.
+
+**One regression to own.** The GRPO reward pushed too hard toward committing, so
+abstention on the vague probes slipped from 3/4 to 2/4. That is a reward-balance fix for
+the next round. The ground truth here is what a real change did, not a token-overlap proxy,
+and the context fed in is exactly what retrieval surfaces (recall@10 = 92%), so the
+benchmark measures comprehension, not memorization.
 
 ## The box
 
