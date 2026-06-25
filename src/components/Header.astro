@@ -1,0 +1,72 @@
+---
+const links = [
+  { href: '/#work', label: 'Work' },
+  { href: '/#approach', label: 'Approach' },
+  { href: '/#contact', label: 'Contact' },
+];
+---
+
+<header class="site-head">
+  <div class="wrap bar">
+    <a class="name" href="/">Henry&nbsp;Bonikowsky</a>
+    <nav aria-label="Primary">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      <a class="gh" href="https://github.com/Henry-Bonikowsky" target="_blank" rel="noopener">GitHub&nbsp;↗</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-head {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: saturate(1.4) blur(8px);
+    -webkit-backdrop-filter: saturate(1.4) blur(8px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  .site-head[data-scrolled] { border-bottom-color: var(--rule); }
+  .bar {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.05rem;
+  }
+  .name {
+    font-family: var(--font-display);
+    font-weight: 560;
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  nav {
+    display: flex;
+    gap: clamp(0.9rem, 2.4vw, 1.9rem);
+    align-items: baseline;
+  }
+  nav a {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    transition: color 0.2s ease;
+  }
+  nav a:hover { color: var(--accent); }
+  nav .gh { color: var(--ink); }
+  @media (max-width: 540px) {
+    nav a:not(.gh) { display: none; }
+  }
+</style>
+
+<script>
+  const head = document.querySelector('.site-head');
+  const onScroll = () => {
+    if (window.scrollY > 8) head?.setAttribute('data-scrolled', '');
+    else head?.removeAttribute('data-scrolled');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

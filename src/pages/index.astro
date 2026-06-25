@@ -1,0 +1,245 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectEntry from '../components/ProjectEntry.astro';
+import MiniCard from '../components/MiniCard.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const core = projects.filter((p) => p.data.tier === 'core');
+const secondary = projects.filter((p) => p.data.tier === 'secondary');
+
+const principles = [
+  {
+    n: '01',
+    h: 'The interesting turn is the one where it’s wrong.',
+    p: 'A demo shows the happy path. The work I care about is what happens on the turn the model gets it wrong: how the failure is detected, how cheaply it recovers, and whether the design made the mistake legible in the first place.',
+  },
+  {
+    n: '02',
+    h: 'Execution over opinion.',
+    p: 'I never let a model judge correctness it can’t actually verify. Where I can, I select between candidates by running them, not by asking a model which one looks best. The hard problems are exactly where model self-assessment fails.',
+  },
+  {
+    n: '03',
+    h: 'Honest about the limits.',
+    p: 'Negative results are results. My writeups say where a system falls short, what didn’t beat the baseline, and what’s still unverified, because a portfolio that only shows wins is the same failure mode as a model that only reports its successes.',
+  },
+  {
+    n: '04',
+    h: 'Build the harness before trusting the output.',
+    p: 'The eval rig and the logging come first. If I can’t measure whether something works, I don’t yet know that it does, no matter how good it looks running once.',
+  },
+];
+---
+
+<Base>
+  <!-- ───────────────── hero ───────────────── -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Software &amp; machine learning</p>
+      <h1 class="headline">
+        Language-model systems,<br /><em>honestly evaluated.</em>
+      </h1>
+      <p class="lead">
+        I’m Henry Bonikowsky. I train small models to outperform their weight class
+        on narrow domains, and I build the eval and verification harnesses that prove
+        whether an agent actually did what it was asked, instead of just looking like it did.
+      </p>
+      <div class="cta">
+        <a class="btn" href="#work">See the work</a>
+        <a class="btn ghost" href="mailto:henrybonikowsky@gmail.com">Get in touch</a>
+      </div>
+      <p class="now mono">
+        <span class="dot" aria-hidden="true"></span>
+        Currently building <a class="link" href="/projects/hella">Hella</a>, a domain-specialized code model.
+      </p>
+    </div>
+  </section>
+
+  <!-- ───────────────── work ───────────────── -->
+  <section id="work" class="section">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="eyebrow">Selected work</p>
+        <h2>Four projects, in depth.</h2>
+        <p class="sec-sub muted">
+          Each one is written up as a case study: the problem, the approach, the real
+          results including where they fall short, and what comes next.
+        </p>
+      </header>
+
+      <div class="entries">
+        {core.map((p, i) => (
+          <ProjectEntry
+            index={i + 1}
+            slug={p.id}
+            title={p.data.title}
+            kind={p.data.kind}
+            status={p.data.status}
+            tagline={p.data.tagline}
+            summary={p.data.summary}
+            stack={p.data.stack}
+            metrics={p.data.metrics}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── secondary ───────────────── -->
+  {secondary.length > 0 && (
+    <section class="section sec-more">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">Also in the workshop</p>
+          <h2>Shorter range.</h2>
+          <p class="sec-sub muted">
+            Tooling, security research, and reinforcement learning, the side quests that
+            keep the toolbox wide.
+          </p>
+        </header>
+        <div class="mini-grid">
+          {secondary.map((p) => (
+            <MiniCard
+              slug={p.id}
+              title={p.data.title}
+              kind={p.data.kind}
+              tagline={p.data.tagline}
+              repo={p.data.repo}
+              link={p.data.link}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ───────────────── approach ───────────────── -->
+  <section id="approach" class="section approach">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="eyebrow">How I work</p>
+        <h2>Four habits.</h2>
+      </header>
+      <div class="principles">
+        {principles.map((pr) => (
+          <div class="principle">
+            <span class="p-num mono">{pr.n}</span>
+            <div>
+              <h3>{pr.h}</h3>
+              <p class="muted">{pr.p}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────── contact ───────────────── -->
+  <section id="contact" class="section contact">
+    <div class="wrap">
+      <p class="eyebrow center">Contact</p>
+      <p class="big-line">
+        I’m looking for work where models and the people checking them
+        sit at the same table.
+      </p>
+      <div class="contact-cta">
+        <a class="btn" href="mailto:henrybonikowsky@gmail.com">henrybonikowsky@gmail.com</a>
+        <a class="btn ghost" href="https://github.com/Henry-Bonikowsky" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* hero */
+  .hero { padding-block: clamp(4rem, 13vw, 9rem) clamp(2.5rem, 7vw, 5rem); }
+  .headline {
+    margin-top: 1.1rem;
+    max-width: 16ch;
+    font-size: var(--step-4);
+  }
+  .headline em { color: var(--accent); font-style: italic; }
+  .lead {
+    margin-top: 1.8rem;
+    font-size: var(--step-1);
+    line-height: 1.42;
+    max-width: 46ch;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+  .cta { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2.2rem; }
+  .now {
+    margin-top: 2.4rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 0.55rem;
+  }
+  .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+    animation: pulse 2.6s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+    70% { box-shadow: 0 0 0 7px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+
+  /* buttons */
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    padding: 0.7rem 1.25rem;
+    border-radius: 100px;
+    background: var(--ink);
+    color: var(--bg);
+    border: 1px solid var(--ink);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .btn:hover { transform: translateY(-1px); background: var(--accent); border-color: var(--accent); }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--rule); }
+  .btn.ghost:hover { background: transparent; color: var(--accent); border-color: var(--accent); }
+
+  /* section heads */
+  .sec-head { max-width: 52ch; margin-bottom: clamp(1rem, 3vw, 2rem); }
+  .sec-head h2 { margin-top: 0.7rem; }
+  .sec-sub { margin-top: 1rem; font-size: var(--step-0); }
+
+  .sec-more { background: var(--bg-tint); border-block: 1px solid var(--rule); }
+  .mini-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+    gap: 1.1rem;
+  }
+
+  /* approach */
+  .principles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.6rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem);
+    margin-top: 1rem;
+  }
+  .principle { display: grid; grid-template-columns: 2.4rem 1fr; gap: 1rem; }
+  .p-num { color: var(--accent); font-size: 0.8rem; padding-top: 0.45rem; }
+  .principle h3 { font-size: var(--step-1); }
+  .principle p { margin-top: 0.6rem; font-size: 0.98rem; max-width: 42ch; }
+  @media (max-width: 680px) { .principles { grid-template-columns: 1fr; } }
+
+  /* contact */
+  .contact { text-align: center; }
+  .big-line {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    max-width: 24ch;
+    margin: 1rem auto 0;
+  }
+  .contact-cta { display: flex; gap: 0.8rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
+  .center { text-align: center; }
+</style>

@@ -1,0 +1,43 @@
+---
+const year = 2026;
+---
+
+<footer class="site-foot">
+  <div class="wrap">
+    <hr class="rule-accent" />
+    <div class="grid">
+      <div>
+        <p class="big">Building language-model systems and the harnesses that make them trustworthy.</p>
+      </div>
+      <div class="links">
+        <span class="eyebrow">Elsewhere</span>
+        <a class="link" href="mailto:henrybonikowsky@gmail.com">henrybonikowsky@gmail.com</a>
+        <a class="link" href="https://github.com/Henry-Bonikowsky" target="_blank" rel="noopener">github.com/Henry-Bonikowsky</a>
+      </div>
+    </div>
+    <p class="fine mono muted">© {year} Henry Bonikowsky · Built with Astro, deployed on GitHub Pages</p>
+  </div>
+</footer>
+
+<style>
+  .site-foot { padding-block: clamp(2.5rem, 6vw, 4rem) 2.5rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 2rem;
+    margin-top: 2.2rem;
+  }
+  .big {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.18;
+    letter-spacing: -0.012em;
+    max-width: 22ch;
+  }
+  .links { display: flex; flex-direction: column; gap: 0.55rem; align-items: start; }
+  .links .eyebrow { margin-bottom: 0.4rem; }
+  .fine { font-size: 0.72rem; margin-top: 3rem; letter-spacing: 0.02em; }
+  @media (max-width: 640px) {
+    .grid { grid-template-columns: 1fr; gap: 1.6rem; }
+  }
+</style>
