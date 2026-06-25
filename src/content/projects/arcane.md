@@ -1,6 +1,6 @@
 ---
 title: Arcane Ecosystem
-tagline: A modular Minecraft server platform I've grown for years, the closest thing I've built to production.
+tagline: A modular Minecraft server platform I've built over the past year, the closest thing I've come to production.
 tier: core
 order: 2
 kind: platform · live systems
@@ -18,9 +18,9 @@ featured: true
 ## The longest thread
 
 Everything else in this portfolio is a system I built to learn something. Arcane is the
-system I built to *ship*. It is the project I have come back to for years, and it is the
-closest my work has come to production: it is built to run a commercial Minecraft server
-with hundreds of players and real revenue.
+system I built to *ship*. It is the project I keep coming back to, the better part of a
+year of continuous work, and it is the closest my work has come to production: it is built
+to run a commercial Minecraft server with hundreds of players and real revenue.
 
 That is a different bar from a research repo. It means uptime, data integrity, anti-dupe,
 backwards-compatible migrations, and a player base that treats every regression as a
@@ -52,5 +52,5 @@ into internals. They integrate; they do not entangle.
 ## Why it's here
 
 The research projects show how I think. Arcane shows that I finish, maintain, and ship to
-real people. It is the nearest thing I have to users and revenue, and the longest proof
+real people. It is the nearest thing I have to users and revenue, and the clearest proof
 that I can carry a system far past the demo.
