@@ -46,7 +46,7 @@ does not do what was asked, usually an integration fact, not a local detail, and
 "done" until that fact is execution-proven. It is a forcing function for comprehension,
 not a test counter.
 
-## Honest about its range
+## Its limits
 
 hermes is a research harness, and it shows its seams. It is **slow**, the oracle, the
 fuzzer, and best-of-N all cost generations, so it is not something you reach for on every
@@ -55,6 +55,6 @@ the decision logic of [ValoBoard](/projects/valoboard), where correctness is wel
 and it produced good results. On open-ended, taste-driven work it has much less to offer,
 and the writeup says so.
 
-The interesting part was never the throughput. It was building a system that is honest
-about what it has and hasn't proven, the same discipline I'd want from any agent that
-claims a job is finished.
+The interesting part was never the throughput. It was building a system that tells you
+exactly what it has and has not proven, the same discipline I want from any agent that
+calls a job finished.

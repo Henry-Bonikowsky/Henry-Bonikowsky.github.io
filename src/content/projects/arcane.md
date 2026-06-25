@@ -32,7 +32,7 @@ At the center is **Arcane Sigils**: a 56,000-line, 213-file ability engine. Play
 "sigils" into armor and weapons; 44 distinct effects fire on triggers (attack, defend,
 kill, death, passive) with conditional activation by health, biome, or time of day.
 
-A piece I built, shipped, and later cut tells the honest story of the project: a **YAML
+A piece I built, shipped, and later cut shows what running real software is like: a **YAML
 flow-graph DSL and visual node system** that let a server owner who does not write Java
 author entirely new mechanics by wiring effects together. It worked. But the partners it
 was meant for did not end up using it, so I removed it rather than carry a feature nobody

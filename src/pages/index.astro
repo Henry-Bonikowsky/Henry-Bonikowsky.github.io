@@ -14,17 +14,17 @@ const principles = [
   {
     n: '01',
     h: 'The interesting turn is the one where it’s wrong.',
-    p: 'A demo shows the happy path. The work I care about is what happens on the turn the model gets it wrong: how the failure is detected, how cheaply it recovers, and whether the design made the mistake legible in the first place.',
+    p: 'A demo shows the happy path. I care about the turn where the model is wrong: whether the system catches it, and how cheaply it gets back on track.',
   },
   {
     n: '02',
     h: 'Execution over opinion.',
-    p: 'I never let a model judge correctness it can’t actually verify. Where I can, I select between candidates by running them, not by asking a model which one looks best. The hard problems are exactly where model self-assessment fails.',
+    p: 'I don’t let a model grade work it can’t check. Where I can, I pick the winning candidate by running it. Models are worst at judging themselves on the hard problems, which is exactly where you want to lean on them.',
   },
   {
     n: '03',
-    h: 'Honest about the limits.',
-    p: 'Negative results are results. My writeups say where a system falls short, what didn’t beat the baseline, and what’s still unverified, because a portfolio that only shows wins is the same failure mode as a model that only reports its successes.',
+    h: 'Negative results count.',
+    p: 'Negative results are results. I write up where a system falls short and what didn’t beat the baseline. A portfolio that only shows wins has the same blind spot as a model that only reports its wins.',
   },
   {
     n: '04',
@@ -40,12 +40,12 @@ const principles = [
     <div class="wrap">
       <p class="eyebrow">Software &amp; machine learning</p>
       <h1 class="headline">
-        Language-model systems,<br /><em>honestly evaluated.</em>
+        Language-model systems,<br /><em>measured against the frontier.</em>
       </h1>
       <p class="lead">
-        I’m Henry Bonikowsky. I train small models to outperform their weight class
-        on narrow domains, and I build the eval and verification harnesses that prove
-        whether an agent actually did what it was asked, instead of just looking like it did.
+        I’m Henry Bonikowsky. I train small models to do one thing well, and I build the
+        benchmarks that check whether they did it. My current stack plans code changes at
+        higher precision than Opus on a held-out set of real commits.
       </p>
       <div class="cta">
         <a class="btn" href="#work">See the work</a>
