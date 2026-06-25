@@ -40,6 +40,10 @@ touched, the kind of call you only have to make on something real. The engine st
 carries a custom particle system, an 1.8 PvP combat model backported to 1.21, and
 packet-level work through ProtocolLib.
 
+It also runs **bots that make their decisions with AI** rather than fixed scripts. That is
+the thread tying this project back to the rest of my work: even the production system I
+built to ship has a model making choices inside the live world.
+
 ## The platform
 
 Seven addons share one world, and the discipline that keeps that maintainable is a hard
