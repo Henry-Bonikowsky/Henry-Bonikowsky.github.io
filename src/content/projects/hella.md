@@ -7,9 +7,10 @@ kind: orchestration · LLM training
 status: Active
 stack: [Python, PyTorch, unsloth, SFT + GRPO, LoRA, vLLM, Ollama]
 metrics:
-  - { value: "93%", label: "Brain grounding" }
-  - { value: "91%", label: "Brain precision" }
-summary: An orchestration layer for code generation. A Brain decomposes intent into a spec, then dispatches each piece to a small model trained for that specific task, on the bet that a team of specialists beats one generalist on a domain. Built end to end, from the data pipeline and per-task fine-tuning up to the orchestrator that routes and composes.
+  - { value: "0.75", label: "precision (Opus 0.45)" }
+  - { value: "0.64", label: "F1 (Opus 0.51)" }
+  - { value: "0.96", label: "grounding" }
+summary: An orchestration layer for code generation. A Brain decomposes intent into a spec and routes each piece to a small model trained for that job. On a held-out benchmark of real commits, the Brain beats Opus on precision (0.75 vs 0.45) and F1, by targeting the work surgically instead of over-naming files.
 featured: true
 ---
 
@@ -32,40 +33,56 @@ The orchestrator is the product. The individual models are components it directs
 **The Brain.** An orchestration layer that does not jump to code. It decomposes an intent
 into a spec, requirements, interfaces, and dependencies, interviews on the load-bearing
 decisions rather than guessing them, then dispatches each part of the work to the model
-best suited to it and composes the results. A grounded plan and the right routing are
-worth more than any single clever completion.
+best suited to it.
 
 **Task-specialized models.** Small models, each fine-tuned for a narrow job with LoRA via
 unsloth, with a GRPO stage for preference optimization and a vLLM serving path for fast
-generation. Because each one only has to be good at its slice, it can actually be good at
-it.
+generation. Because each one only has to be good at its slice, it can actually be good at it.
 
 **A data pipeline.** A scraped corpus of real Bukkit/Paper/Fabric codebases, normalized
-into per-task training sets that carry the version, the API surface, and the conventions
-in context.
+into per-task training sets that carry the version, the API surface, and the conventions.
 
-## What's measured
+## The benchmark
 
-The Brain hits **93% grounding and 91% precision** on my eval harness: it keeps its plans
-tied to the actual API surface rather than inventing one, and it keeps what it routes
-relevant to what was asked. The harness runs generated plugins against a compiler and a
-behavior check, and it can run Hella head-to-head against a frontier baseline on the same
-specs, so "is the orchestrated team good enough yet" is a measured question, not a vibe.
+The question I wanted answered without fooling myself: can the small model *plan a code
+change* better than a frontier model?
 
-## What hasn't worked, yet
+**Task.** Give the model a real intent (an actual git commit message, like
+`fix(aura): skip NPCs in pull-on-hit`) plus the repo's grounded context: an index map and
+the signature skeletons of the top-10 retrieved files at the commit's parent. It outputs a
+plan, which files to change and the edit in each. It targets the work; it does not write
+the code here.
 
-This is an honest research log, so the negative results matter:
+**Data.** 60 held-out real commits from 6 of my Arcane repos, kept out of training by
+commit SHA, with the files each commit actually changed as ground truth. Plus 4 vague
+probes (real repo, unlocatable intent) to test whether it refuses instead of guessing.
 
-- A **GRPO checkpoint regressed** below its supervised parent on one-shot codegen, so I
-  reverted to the stronger SFT adapter rather than ship the more "advanced" but worse model.
-- A **trained decomposer did not beat a few-shot composer baseline**: it overfit a small
-  synthetic spec set, and a gentler retrain only recovered to roughly par. The lesson was
-  about corpus diversity and eval noise, not architecture.
+**Grading is pure git, no model-as-judge.** Parse the files the plan names, compare to
+what the commit really touched (precision, recall, F1), check the names are real repo files
+(grounding), check the probes (abstention). Same prompt, same context, same grader across
+all three arms: Hella, the frozen base model, and Opus.
 
-Both are the kind of thing a leaderboard number would hide.
+| metric | Hella | Opus | base |
+|---|---|---|---|
+| **precision** | **0.747** | 0.454 | 0.239 |
+| recall | 0.612 | 0.692 | 0.268 |
+| **F1** | **0.638** | 0.511 | 0.214 |
+| **grounding** | **0.961** | 0.933 | 0.952 |
+| abstention | 3/4 | 4/4 | 1/4 |
+| acted | 60/60 | 58/60 | 59/60 |
+
+**The read.** Hella wins precision (0.75 vs Opus 0.45) and F1 by being surgical. Opus wins
+recall because it over-names, listing about twice as many files, so it catches more but is
+wrong more often. On precision, the metric that punishes confident-wrong, a small
+specialist beats the frontier model. With n=60, treat ±0.02 as noise.
+
+It is honest because the ground truth is what a real change did, not a token-overlap proxy,
+and the context fed in is exactly what retrieval surfaces (recall@10 = 92%), so it measures
+comprehension, not memorization. This is one of five axes in a unified harness that runs
+into a single versioned leaderboard and doubles as a regression gate.
 
 ## Where it's going
 
-Behavior-level evaluation beyond compile-pass, more specialists covering more of the
-stack, and a desktop app that ships the orchestrator and its models locally via Ollama
-behind a Tauri shell. Hella is the project I'm actively building.
+More specialists covering more of the stack, closing the recall gap without giving up the
+precision lead, and a desktop app that ships the orchestrator and its models locally via
+Ollama behind a Tauri shell. Hella is the project I am actively building.
