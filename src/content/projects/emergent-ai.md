@@ -2,7 +2,7 @@
 title: emergent-ai
 tagline: Can intelligence emerge from environment design alone, with no reward function?
 tier: core
-order: 3
+order: 4
 kind: research
 status: Completed
 stack: [Java, agent simulation]

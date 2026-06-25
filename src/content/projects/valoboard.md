@@ -2,7 +2,7 @@
 title: ValoBoard
 tagline: A deterministic decision engine for Valorant, and a clean testbed for reasoning systems.
 tier: core
-order: 4
+order: 5
 kind: engine · simulation
 status: Active
 stack: [Rust, WASM, TypeScript, Tauri, navmesh, BVH raycasting]

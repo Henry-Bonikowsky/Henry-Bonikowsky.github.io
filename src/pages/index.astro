@@ -51,10 +51,6 @@ const principles = [
         <a class="btn" href="#work">See the work</a>
         <a class="btn ghost" href="mailto:henrybonikowsky@gmail.com">Get in touch</a>
       </div>
-      <p class="now mono">
-        <span class="dot" aria-hidden="true"></span>
-        Currently building <a class="link" href="/projects/hella">Hella</a>, an orchestration layer over task-specialized models.
-      </p>
     </div>
   </section>
 
@@ -63,7 +59,7 @@ const principles = [
     <div class="wrap">
       <header class="sec-head">
         <p class="eyebrow">Selected work</p>
-        <h2>Four projects, in depth.</h2>
+        <h2>The work, up close.</h2>
         <p class="sec-sub muted">
           Each one is written up as a case study: the problem, the approach, the real
           results including where they fall short, and what comes next.
@@ -175,24 +171,6 @@ const principles = [
     font-weight: 400;
   }
   .cta { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2.2rem; }
-  .now {
-    margin-top: 2.4rem;
-    font-size: 0.8rem;
-    color: var(--muted);
-    display: flex; align-items: center; gap: 0.55rem;
-  }
-  .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
-    animation: pulse 2.6s infinite;
-  }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
-    70% { box-shadow: 0 0 0 7px transparent; }
-    100% { box-shadow: 0 0 0 0 transparent; }
-  }
-
   /* buttons */
   .btn {
     font-family: var(--font-mono);

@@ -2,7 +2,7 @@
 title: hermes
 tagline: An agent harness that refuses to call code "done" until it's proven by running it.
 tier: core
-order: 2
+order: 3
 kind: verification · orchestration
 status: Active
 stack: [Python, MCP, differential testing, subprocess sandbox, best-of-N]
