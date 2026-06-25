@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Spline+Sans+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { margin: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; }
+      .card {
+        width: 1200px;
+        height: 630px;
+        background: #faf8f2;
+        color: #201f1b;
+        padding: 84px 88px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        font-family: 'Fraunces', Georgia, serif;
+        overflow: hidden;
+      }
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 88px;
+        width: 128px; height: 7px;
+        background: #b14f2b;
+      }
+      .eyebrow {
+        font-family: 'Spline Sans Mono', monospace;
+        font-size: 23px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: #b14f2b;
+        font-weight: 500;
+      }
+      h1 {
+        font-size: 76px;
+        line-height: 1.04;
+        letter-spacing: -0.022em;
+        font-weight: 560;
+        max-width: 19ch;
+        margin-top: 26px;
+      }
+      .foot {
+        font-family: 'Spline Sans Mono', monospace;
+        font-size: 27px;
+        letter-spacing: 0.03em;
+        color: #6d6a5b;
+      }
+      .foot b { color: #201f1b; font-weight: 500; }
+      .dot { color: #b14f2b; padding: 0 0.5em; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div>
+        <div class="eyebrow">Henry Bonikowsky</div>
+        <h1>Language-model systems and the harnesses that prove they work.</h1>
+      </div>
+      <div class="foot">
+        <b>Hella</b><span class="dot">·</span><b>hermes</b><span class="dot">·</span><b>emergent-ai</b><span class="dot">·</span><b>ValoBoard</b><span class="dot">·</span><b>Arcane</b>
+      </div>
+    </div>
+  </body>
+</html>
