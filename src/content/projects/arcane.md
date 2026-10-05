@@ -5,59 +5,60 @@ tier: core
 order: 2
 kind: platform · live systems
 status: Live
-stack: [Java 21, Paper 1.21, MySQL, HikariCP, ProtocolLib, custom DSL]
+stack: [Java 21, Paper 1.21, MySQL, ProtocolLib, Maven reactor]
 metrics:
-  - { value: "56k", label: "engine LOC" }
-  - { value: "7", label: "integrated addons" }
-  - { value: "44", label: "sigil effects" }
-repo: https://github.com/Henry-Bonikowsky/Arcane-Sigils
-summary: My longest-running project, a Paper plugin platform built around a 56k-line ability engine, plus seven interlocking addons that share one live world through public APIs. It is the project closest to a commercial server with real players and revenue.
+  - { value: "81k", label: "engine LOC" }
+  - { value: "77", label: "sigil effects" }
+  - { value: "7", label: "addons & plugins" }
+summary: My longest-running project, a Paper plugin platform built around an 81k-line ability engine, plus seven addons and plugins that share one live world through public APIs. It runs on a server I host, and every deploy lands where players are.
 featured: true
 ---
 
 ## The longest thread
 
 Everything else in this portfolio is a system I built to learn something. Arcane is the
-system I built to *ship*. It is the project I keep coming back to, the better part of a
-year of continuous work, and it is the closest my work has come to production: it is built
-to run a commercial Minecraft server with hundreds of players and real revenue.
+system I built to *ship*. It is the project I keep coming back to, most of a year of
+continuous work, and it runs live on a server I host and administer: a VPS with a proxy
+in front, a panel, and one main game server. There is no separate test box, so every
+deploy lands where players are. The paid store is on hold while it is rebuilt, so I'm not
+claiming revenue here.
 
-That is a different bar from a research repo. It means uptime, data integrity, anti-dupe,
-backwards-compatible migrations, and a player base that treats every regression as a
-personal betrayal. This is where I learned the unglamorous half of engineering.
+Running it live is a different bar from a research repo. It means data integrity,
+anti-dupe tracking, hot reloads instead of restarts, and backwards-compatible migrations.
+This is where I learned the unglamorous half of engineering.
 
 ## The engine
 
-At the center is **Arcane Sigils**: a 56,000-line, 213-file ability engine. Players socket
-"sigils" into armor and weapons; 44 distinct effects fire on triggers (attack, defend,
-kill, death, passive) with conditional activation by health, biome, or time of day.
+At the center is **Arcane Sigils**: an 81,000-line, 462-file ability engine. Players
+socket "sigils" into armor and weapons; 77 registered effects fire on 26 trigger types
+(attack, defense, kills, bow hits, a passive tick, and more) with conditional activation by health, biome, or time of
+day.
 
 A piece I built, shipped, and later cut shows what running real software is like: a **YAML
 flow-graph DSL and visual node system** that let a server owner who does not write Java
 author entirely new mechanics by wiring effects together. It worked. But the partners it
-was meant for did not end up using it, so I removed it rather than carry a feature nobody
-touched, the kind of call you only have to make on something real. The engine still
-carries a custom particle system, an 1.8 PvP combat model backported to 1.21, and
-packet-level work through ProtocolLib.
+was meant for did not end up using it, so I removed it, about 4,300 lines, rather than
+carry a feature nobody touched. The engine still carries a custom particle shape system,
+1.8-style combat on a 1.21 server, and packet-level work through ProtocolLib.
 
-It also runs **bots that make their decisions with AI** rather than fixed scripts. That is
-the thread tying this project back to the rest of my work: even the production system I
-built to ship has a model making choices inside the live world.
+It also runs **combat bots**: fake players driven by a rule-based state machine, with
+difficulty tiers that each set 27 combat tunables. They fight with the same sigils
+players use.
 
 ## The platform
 
-Seven addons share one world, and the discipline that keeps that maintainable is a hard
-rule: **each addon reaches another's data only through its public API**, never by reaching
-into internals. They integrate; they do not entangle.
+The addons and plugins share one world, and the discipline that keeps that maintainable
+is a hard rule: **each one reaches another's data only through its public API**, never by
+reaching into internals. They integrate; they do not entangle.
 
-- **Economy** — vaults, a market with a database-backed web bridge, CS:GO-style cases, and item dupe-tracking across 11 MySQL tables.
-- **Legions** — factions, territory claiming, power, and banks.
-- **Dungeons** — instanced PvE with parties and tiered bosses, backed by a deep test suite.
-- **WarZone** — a procedurally generated mining system and a sandstorm event.
-- **Duels, Arena, Cosmetics** — ranked ELO matchmaking, PvP, and player customization.
+- **Economy**: vaults, a market with a polling website bridge, CS:GO-style cases, and item dupe-tracking, across 19 MySQL tables.
+- **Legions**: factions, chunk-claimed territory, relations, power, and banks.
+- **Dungeons**: hand-built PvE dungeons with wave and boss orchestration and party runs, backed by the deepest test suite in the project.
+- **WarZone**: capturable points, outposts, generated caves for mining, and a sandstorm event.
+- **Duels**: ranked ELO, kits, arenas, and seasonal rewards.
+- **Bots** and **Gardens**: the combat bots above, and a newer farming addon.
 
 ## Why it's here
 
 The research projects show how I think. Arcane shows that I finish, maintain, and ship to
-real people. It is the nearest thing I have to users and revenue, and the clearest proof
-that I can carry a system far past the demo.
+a live server, and that I can carry a system far past the demo.

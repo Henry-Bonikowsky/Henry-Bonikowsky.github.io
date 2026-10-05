@@ -1,16 +1,16 @@
 ---
 title: ValoBoard
-tagline: A deterministic decision engine for Valorant, and a clean testbed for reasoning systems.
+tagline: A deterministic decision engine for Valorant, built on the game's real map geometry, and shelved when I saw where it led.
 tier: core
-order: 5
+order: 6
 kind: engine · simulation
-status: Active
+status: Shelved
 stack: [Rust, WASM, TypeScript, Tauri, navmesh, BVH raycasting]
 metrics:
-  - { value: "~11k", label: "lines of code" }
+  - { value: "12.5k", label: "lines of Rust" }
   - { value: "20Hz", label: "sim tick" }
   - { value: "0", label: "aim / RNG" }
-summary: A headless Rust engine that reasons over real Valorant map geometry, baked BVH raycasts and navmesh pathing, with no aim mechanics and no randomness, rendered as a 2D tactical board in a Tauri desktop app. Built so that decisions are the only variable.
+summary: A headless Rust engine that reasons over real Valorant map geometry, baked BVH raycasts and navmesh pathing, with no aim mechanics and no randomness, rendered as a 2D tactical board in a Tauri desktop app. I shelved the simulator once it was clear that teaching game sense this way meant rebuilding Valorant; its geometry extraction lives on in my other Valorant tools.
 featured: true
 ---
 
@@ -18,33 +18,32 @@ featured: true
 
 Valorant is usually studied through aim and reactions, which are noisy. ValoBoard strips
 those out on purpose. It is a board-game-style simulator: a headless engine reasons over
-the **real geometry of Haven**, a baked BVH for line-of-sight raycasts, a navmesh for
-movement, and runs at a fixed 20Hz with **no aim and no RNG**.
+the **real geometry of Haven**, extracted from the game files, with a baked BVH for
+line-of-sight raycasts and a navmesh for movement, and runs at a fixed 20Hz with **no aim
+and no RNG**.
 
-The reason to remove the noise is that it makes the model's *decisions* the only thing
-that moves the outcome. If a round goes a certain way, it went that way because of a
-choice, not a flick. That makes it a clean place to study and to test reasoning.
+The reason to remove the noise is that it makes *decisions* the only thing that moves the
+outcome. If a round goes a certain way, it went that way because of a choice, not a flick.
 
 ## The build
 
-It is a real cross-stack engine, not a toy:
-
 - A **Rust core** doing the geometry and simulation, compiled to **WASM** for the front end.
 - A **navmesh** pathing layer and a **baked BVH** so sightline queries are cheap enough to run every tick.
-- A **2D canvas board**, a hand-built tactical minimap with agents, sightlines, and timing, in a **Tauri** desktop shell.
-- Headless probes and end-to-end verification so the engine can be checked without the UI.
+- A **2D canvas board**, a tactical minimap with agents, sightlines, and timing, in a **Tauri** desktop shell.
+- Headless probes, a round linter, and a round benchmark so the engine can be checked without the UI.
+- A map-dump tool that pulls meshes, collision, navmesh, and lighting out of the game files.
 
-## The testbed connection
+## Why I shelved it
 
-ValoBoard turned out to be the ideal proving ground for [hermes](/projects/hermes), my
-verification harness. Its decisions are closed-ended and well-defined, exactly the
-regime where execution-grounded selection works, so I ran hermes against its decision
-logic and got good results. The two projects sharpen each other: ValoBoard gives hermes a
-domain where "correct" is decidable, and hermes gives ValoBoard a way to trust its logic.
+The goal was game sense. After a summer of building, it was clear that simulating Valorant
+well enough to teach it collapses into recreating Valorant, and that is not a project I
+want. So I stopped the simulator in August 2026 instead of polishing it.
 
-## Status
+The same day I tested the replacement: parsing my own match replays. An open-source parser
+read a real competitive match into about two million movement records, every kill and
+damage event, ability placements, and clean round segmentation. Reviewing what actually
+happened beats simulating what might.
 
-Active. The geometry, simulation, and board are real and running; the next work is
-deepening the decision model and widening it past Haven. It is the engineering piece I am
-most proud of, one person carrying a Rust sim engine, a WASM bridge, and a designed UI
-end to end.
+The geometry work survived. The map-dump tool feeds [brim-lineups](/projects/brim-lineups),
+which uses the same extracted geometry and the game's projectile constants to solve
+Brimstone lineups.

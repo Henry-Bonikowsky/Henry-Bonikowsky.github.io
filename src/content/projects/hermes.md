@@ -4,7 +4,7 @@ tagline: An agent harness that refuses to call code "done" until it's proven by 
 tier: core
 order: 3
 kind: verification · orchestration
-status: Active
+status: Research
 stack: [Python, MCP, differential testing, subprocess sandbox, best-of-N]
 metrics:
   - { value: "exec", label: "selection basis" }
@@ -48,12 +48,17 @@ not a test counter.
 
 ## Its limits
 
-hermes is a research harness, and it shows its seams. It is **slow**, the oracle, the
+hermes is a research harness, and it shows its seams. It is **slow**: the oracle, the
 fuzzer, and best-of-N all cost generations, so it is not something you reach for on every
-edit. Where it genuinely shines is **closed-ended, deterministic problems**: I ran it on
-the decision logic of [ValoBoard](/projects/valoboard), where correctness is well-defined,
-and it produced good results. On open-ended, taste-driven work it has much less to offer,
-and the writeup says so.
+edit. It fits **closed-ended, deterministic problems** best, where "correct" is decidable.
+
+I pointed it at a Valorant decision engine, a rules-based trainer I built alongside
+[ValoBoard](/projects/valoboard), and asked it to render utility on the minimap. Across six
+build-and-repair rounds its probes passed 7/7 and its negative controls caught injected faults, yet
+its own gate audit kept refusing to call the work done: the render check drew frames
+through its own code path, so it would have stayed green even if the shipped minimap
+component were empty. That is the behavior I built it for, and it is also why it is slow.
+On open-ended, taste-driven work it has much less to offer.
 
 The interesting part was never the throughput. It was building a system that tells you
 exactly what it has and has not proven, the same discipline I want from any agent that
