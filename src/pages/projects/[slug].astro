@@ -131,6 +131,7 @@ const { Content } = await render(entry);
     line-height: 1.6;
   }
   .prose :global(pre code) { background: none; padding: 0; }
+  .prose :global(img) { display: block; max-width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 8px; margin: 1.5rem 0 0.6rem; }
   .prose :global(hr) { border: 0; height: 1px; background: var(--rule); margin: 2.5rem 0; }
   /* a "findings" table styling */
   .prose :global(table) { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.92rem; }
