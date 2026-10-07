@@ -18,7 +18,7 @@
         - Rewritten: problem/built/results/box; scores 95.5/94.6 vs Opus 48.9-55.7 (caves 90/91.2 vs 53.8), owner-notes caveat on page + home card, 4 plugins bot-tested, Gardens 120/121, bug fixes re-run (all from Hella repo commits + INGAME-TEST.md). Build OK; Lighthouse mobile hella 99/100, CLS 0; checked 1280px + 412px.
       - [x] Hella screenshot: render a real artifact as hermes did, e.g. idea_to_spec owner-questions output from eval/runs/*.questions.md or the INGAME-TEST.md fix-pass table -> public/shots/hella-*.png, place under the pipeline section.
         - Rendered questions 1-3 of 15 verbatim from eval/runs/arcane-gardens-pipeline-v17.questions.md (the scored run) -> public/shots/hella-owner-questions.png (79KB), placed after step 1; build OK, page checked at 1280px.
-  - [ ] Hero "measured against the frontier" is a vs-frontier claim the research doc says has no published results behind it (Hella numbers removed). Reword to something verifiable.
-    - Also: hero line "I train small models to do one thing well" no longer fits; Hella is now a Claude-CLI pipeline, no trained models in any repo.
+  - [x] Hero "measured against the frontier" is a vs-frontier claim the research doc says has no published results behind it (Hella numbers removed). Reword to something verifiable.
+    - Now "Language-model systems, checked by running them." + lead "build pipelines and agent harnesses around language models, make what they produce prove itself by compiling and running" (Hella compile/load, hermes run gates); no trained-model claim. Build OK; Lighthouse home mobile 99/100 CLS 0; fits at 412px and 1280px.
   - [ ] ValoBoard (shelved 2026-08-27) is still tier core in the main list; the goal's core five excludes it. Move it to secondary.
   - [ ] Each core case study opens with problem -> what he built -> concrete result: check the five summaries/first sections against this and tighten.
