@@ -8,7 +8,7 @@ status: Not yet deployed
 stack: [Next.js, TypeScript, Supabase, Stripe, Claude API, Vitest]
 metrics:
   - { value: "178", label: "passing tests" }
-summary: A tutoring web app for college students. A short adaptive quiz maps what you already know, a planner turns that into a dependency map of steps to the goal, and each step is a lesson gated by a check question that is graded on the server. Built and tested end to end, with payments wired in; it is not deployed yet.
+summary: "Most tutoring starts at chapter one. dagogy, a tutoring web app for college students, first finds the edge of what you know with a short adaptive quiz, plans a dependency map of steps to the goal, and teaches one step at a time, each gated by a check question graded on the server. It works end to end locally with 178 passing tests and payments wired in; it is not deployed yet."
 featured: true
 ---
 

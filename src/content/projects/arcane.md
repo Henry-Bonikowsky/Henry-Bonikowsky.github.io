@@ -10,7 +10,7 @@ metrics:
   - { value: "81k", label: "engine LOC" }
   - { value: "77", label: "sigil effects" }
   - { value: "7", label: "addons & plugins" }
-summary: My longest-running project, a Paper plugin platform built around an 81k-line ability engine, plus seven addons and plugins that share one live world through public APIs. It runs on a server I host, and every deploy lands where players are.
+summary: "Running a game server for real players means every bug lands on someone. Arcane is my answer: a Paper plugin platform built around an 81k-line ability engine, plus seven addons and plugins that share one world only through public APIs. It runs live on a server I host, with anti-dupe tracking, hot reloads, and backwards-compatible migrations, because every deploy lands where players are."
 featured: true
 ---
 

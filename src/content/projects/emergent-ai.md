@@ -10,7 +10,7 @@ metrics:
   - { value: "9", label: "experiments" }
   - { value: "0", label: "reward functions" }
 repo: https://github.com/Henry-Bonikowsky/emergent-ai
-summary: A research project asking whether you can build environments where the easiest path is the intelligent path, defining only physics and letting agents discover what works through pure trial and error, with no explicit reward signal.
+summary: "Can intelligence emerge from environment design alone, with no reward function? Across nine documented attempts I defined only a world's physics and let agents learn by trial and error. They found the cheapest exploit almost every time (doing nothing, hugging walls), which taught me the finding: the environment is the problem, never the agent, and a good one has to self-correct."
 featured: true
 ---
 

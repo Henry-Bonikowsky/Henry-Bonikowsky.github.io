@@ -22,4 +22,5 @@
     - Now "Language-model systems, checked by running them." + lead "build pipelines and agent harnesses around language models, make what they produce prove itself by compiling and running" (Hella compile/load, hermes run gates); no trained-model claim. Build OK; Lighthouse home mobile 99/100 CLS 0; fits at 412px and 1280px.
   - [x] ValoBoard (shelved 2026-08-27) is still tier core in the main list; the goal's core five excludes it. Move it to secondary.
     - tier secondary, order 12.5 (after brim-lineups): built home lists core hella/arcane/hermes/dagogy/emergent-ai, ValoBoard card in grid at 1280px, /projects/valoboard still built; Lighthouse home mobile 99/100, CLS 0.
-  - [ ] Each core case study opens with problem -> what he built -> concrete result: check the five summaries/first sections against this and tighten.
+  - [x] Each core case study opens with problem -> what he built -> concrete result: check the five summaries/first sections against this and tighten.
+    - Rewrote arcane/hermes/dagogy/emergent-ai home summaries to problem -> built -> result using only facts already on their pages (hella already did); YAML-quoted; build OK, 11 pages; home checked at 1280px.

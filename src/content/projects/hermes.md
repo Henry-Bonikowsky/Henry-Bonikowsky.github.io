@@ -9,7 +9,7 @@ stack: [Python, MCP, differential testing, subprocess sandbox, best-of-N]
 metrics:
   - { value: "exec", label: "selection basis" }
   - { value: "differential", label: "test oracle" }
-summary: An execution-grounded verification harness for LLM-generated code. It enumerates every requirement a request implies, keeps execution-verified strictly separate from "looks right," names the single load-bearing fact, and blocks "done" until that fact is proven by running it.
+summary: "Models call their own code done when it only looks done. hermes is a harness that tests candidates against a brute-force oracle, picks the winner by running it, and blocks \"done\" until the one load-bearing fact is proven by execution. On a real minimap task it refused to sign off through six repair rounds where its probes passed 7/7, because the render check never touched the shipped component."
 featured: true
 ---
 
