@@ -34,6 +34,10 @@ actually did. What they did, almost every time, was find the cheapest exploit:
 - **Wall-hugging**, when spamming movement against a wall earned free survival, they hugged the wall.
 - **Exploit-seeking** instead of learning, whatever the laziest winning behavior was, they converged on it.
 
+![The attempt #9 visualizer: a white agent on a 10x10 grid of green (low decay) and red (high decay) cells, with a coherence bar below](/shots/emergent-ai-sim.png)
+
+*Attempt #9 running locally, 20,000 episodes in: the best agent's world, with decay shown green (low) to red (high).*
+
 ## The finding
 
 > The problem is always the environment, never the agent.
