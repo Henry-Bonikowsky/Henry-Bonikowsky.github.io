@@ -15,7 +15,7 @@ const href = `/projects/${slug}`;
 <article class="mini">
   <a class="cover" href={href} aria-label={`Read about ${title}`}></a>
   <div class="top">
-    <h4 class="t">{title}</h4>
+    <h3 class="t">{title}</h3>
     <span class="k mono">{kind}</span>
   </div>
   <p class="d muted">{tagline}</p>
@@ -45,6 +45,7 @@ const href = `/projects/${slug}`;
   .k { font-size: 0.66rem; letter-spacing: 0.06em; color: var(--accent); white-space: nowrap; }
   .d { font-size: 0.95rem; line-height: 1.5; }
   .foot { display: flex; gap: 1.1rem; margin-top: 0.4rem; position: relative; z-index: 2; }
+  .foot a { display: inline-flex; align-items: center; min-height: 24px; }
   .more { font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink); }
   .more:hover { color: var(--accent); }
   .ext { font-size: 0.72rem; color: var(--muted); }

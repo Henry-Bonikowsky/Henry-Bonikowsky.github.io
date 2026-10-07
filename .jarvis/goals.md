@@ -4,7 +4,8 @@
     - Self-hosted latin woff2 in public/fonts + preload newsreader/fraunces: home mobile 98 (FCP 1.1s, CLS 0), desktop 100; fonts render correctly.
     - [x] Regression from self-hosting: case pages mobile arcane 89, hella 82.
       - Fixed 2026-10-06: trimmed font weight axes (fonts 382KB->269KB) + metric-matched Georgia/Consolas fallback faces. Mobile: home 99, arcane/hella/hermes/emergent-ai/valoboard 97, dagogy 96, all CLS 0; desktop home/arcane 100. Fonts render correctly at 1280px and in a 412px Lighthouse mobile screenshot.
-  - [ ] Home a11y 92 -> 100: MiniCard uses h4 under h2 (heading-order) and its "repo ↗"/link targets are 43x19px (<24px target-size). Fix in MiniCard.astro.
+  - [x] Home a11y 92 -> 100: MiniCard uses h4 under h2 (heading-order) and its "repo ↗"/link targets are 43x19px (<24px target-size). Fix in MiniCard.astro.
+    - h4->h3 + 24px min-height on card links: Lighthouse home mobile 99/100, desktop 100/100 (perf/a11y, Edge); cards look unchanged at 1280px.
   - [x] Case-study mobile CLS 0.107 (arcane page): find the shifting element (likely font swap) and fix.
     - Cause was the mono+italic font swap reflowing the header; the fallback faces fixed it: arcane CLS 0.107 -> 0.
   - [ ] Core case studies Hella, Arcane, hermes, emergent-ai have no screenshot; only dagogy has one. Get real current screenshots (e.g. Arcane in-game / plugin UI, hermes run log, emergent-ai sim) into public/shots/.
