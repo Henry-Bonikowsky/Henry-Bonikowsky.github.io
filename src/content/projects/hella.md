@@ -30,6 +30,8 @@ of them, or says "your call" and the rest are defaulted and listed as
 modes, admin setup, build order. Every stage is cached, so a rerun only redoes what
 changed.
 
+![Hella's owner questions for Arcane Gardens: numbered decisions, each with options and their costs, from the v17 run](/shots/hella-owner-questions.png)
+
 **2. Spec to plugin** (`spec_to_plugin.py`). The spec becomes a Maven project. It only
 counts if it compiles and boots on a real Paper 1.21.11 server with
 `Enabling <name>` and no errors, with up to three fix rounds.
