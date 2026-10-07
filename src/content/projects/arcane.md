@@ -58,6 +58,12 @@ reaching into internals. They integrate; they do not entangle.
 - **Duels**: ranked ELO, kits, arenas, and seasonal rewards.
 - **Bots** and **Gardens**: the combat bots above, and a newer farming addon.
 
+Gardens shows the packet-level side. Every legion sees its own version of the same
+islands: the server patches a per-legion block overlay into the chunk packets each player
+receives, so two players standing in one spot see different builds.
+
+![The same spot on the live server, two views: on the left the base world an admin sees, on the right the tier-2 build the GardenTest legion sees in its place](/shots/arcane-gardens-views.webp)
+
 ## Why it's here
 
 The research projects show how I think. Arcane shows that I finish, maintain, and ship to

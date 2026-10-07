@@ -11,7 +11,8 @@
   - [ ] Core case studies Hella, Arcane, hermes, emergent-ai have no screenshot; only dagogy has one. Get real current screenshots (e.g. Arcane in-game / plugin UI, hermes run log, emergent-ai sim) into public/shots/.
     - [x] emergent-ai: ran attempt #9 (src/Simulation, Visualizer) locally, captured its window -> public/shots/emergent-ai-sim.png, added under "Nine attempts"; built page checked at 1280 and 520px.
     - [x] hermes: rendered the real gate-audit log (hermes-orchestration/.hermes_runs/the-engine-layer...valorant-coach-desktop/run.log lines 114-160, verbatim, long lines cut with …) -> public/shots/hermes-gate-audit.png, added under "Its limits"; built page checked at 1280px.
-    - [ ] Hella, Arcane still need a real screenshot.
+    - [x] Arcane: side-by-side of two real live-server shots from Arcane-Gardens/docs/screens (base world vs GardenTest legion's per-legion overlay, scoreboard with unresolved %luckperms_prefix% cropped out) -> public/shots/arcane-gardens-views.webp (70KB), added under "The platform"; built page checked at 1280px and phone width.
+    - [ ] Hella: research doc called it a one-commit scaffold, but the local repo now has 103 commits since 2026-10-05 (eval/cases, eval/plugins/arcane-gardens, in-game test passes). Re-read Hella's repo, decide what real artifact to screenshot, and check hella.md claims still match.
   - [ ] Hero "measured against the frontier" is a vs-frontier claim the research doc says has no published results behind it (Hella numbers removed). Reword to something verifiable.
   - [ ] ValoBoard (shelved 2026-08-27) is still tier core in the main list; the goal's core five excludes it. Move it to secondary.
   - [ ] Each core case study opens with problem -> what he built -> concrete result: check the five summaries/first sections against this and tighten.
