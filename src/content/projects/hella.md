@@ -1,90 +1,73 @@
 ---
 title: Hella
-tagline: A stack of narrow models for Minecraft plugin development, where a spec goes in and a compiling plugin comes out.
+tagline: A pipeline that turns a rough Minecraft plugin idea into a full spec, then into a plugin that compiles and loads on Paper.
 tier: core
 order: 1
-kind: model stack · LLM training
+kind: idea → spec → plugin · LLM pipeline
 status: Research
-stack: [Python, PyTorch, unsloth, SFT + GRPO, LoRA, vLLM, Ollama]
-summary: A code-synthesis stack for Minecraft plugin development. Narrow models and a composer chain a plain-English spec into a compiling Bukkit plugin, and a held-out benchmark of real commits checks the planning stage against Opus. The training code and result files aren't published yet, so this page describes the design and the method rather than quoting numbers.
+stack: [Python, Claude CLI, Java 21, Maven, Paper 1.21.11, mineflayer, RCON]
+summary: An idea-to-plugin pipeline for Minecraft servers. It asks the owner the questions that matter, writes a full spec in about five minutes, then builds a Paper plugin that has to compile and load before it counts. On my Arcane Gardens test case, an LLM judge scored its spec about 95% against my own design docs, versus 49-56% for plain Opus (flattered, since a simulated owner answered its questions from my notes). Four generated plugins were bot-tested in-game, and the bugs found were fixed and re-run.
 featured: true
 ---
 
-## The bet
+## The problem
 
-Frontier models are generalists. On a fast-moving, narrow domain like Minecraft
-development, one model spread across everything hallucinates APIs, misses version
-targeting, and forgets the conventions that separate a working plugin from one that
-corrupts a world on load.
+The slow part of a server plugin is not the code. It is the spec: every decision about
+what players see, what breaks when the server restarts mid-timer, what an admin has to
+set up, and which choices only the owner can make. Ask a frontier model for a plugin from
+a rough idea and it skips most of that, so the code it writes rests on guesses.
 
-Hella takes the other bet: instead of one model that is good at everything, build a stack
-of small models, each trained for one job, and a composer that chains them.
+## What I built
 
-## The stack
+Hella is a pipeline in three steps.
 
-Hella is not one model. Each stage has its own input and output.
+**1. Idea to spec** (`idea_to_spec.py`). A rough idea goes in: a few paragraphs, no
+decisions. The pipeline drafts a design, finds the forks in it, critiques it, works through
+the mechanics, and sweeps for edge cases (admin setup, malformed input, vanilla survival
+interactions). From that it asks the owner numbered questions. The owner answers any
+of them, or says "your call" and the rest are defaulted and listed as
+"Defaulted (veto to change)". Out comes a full spec: player story, decisions, failure
+modes, admin setup, build order. Every stage is cached, so a rerun only redoes what
+changed.
 
-**1. Retrieval (the explorer).** Intent to the files that matter.
-In: a commit message like `fix(aura): skip NPCs in pull-on-hit`, plus the repo at a commit.
-Out: the ranked top-10 files a developer would touch (`AuraPower.java`,
-`CombatListener.java`, ...). It finds files that exist; it cannot surface a file the change
-will create.
+**2. Spec to plugin** (`spec_to_plugin.py`). The spec becomes a Maven project. It only
+counts if it compiles and boots on a real Paper 1.21.11 server with
+`Enabling <name>` and no errors, with up to three fix rounds.
 
-**2. Brain (orchestrator).** Intent plus retrieved context to a file-target plan.
-In: the intent and those file skeletons. Out:
-`AuraPower.java [modify]: guard isNPC() before the pull`. It targets the work and is
-meant to refuse vague asks; it does not write the code.
+**3. In-game tests.** A throwaway Paper server, mineflayer bots as players, and RCON for
+admin actions and state checks. The bots play through the flows in the spec and the
+results go in a table with the log line as evidence.
 
-**3. Coder (GRPO-trained).** Spec to compiled Java. In: "a `/flight` command that
-toggles the sender's flight and persists across relog via PDC." Out: a full Bukkit plugin
-(`onEnable`, a command class, a PDC store) that builds with Maven and boots on Paper.
-Compiling and running is the training reward, so the output is checked, not guessed.
+## Results
 
-**4. Decomposer.** A prose feature to a requirement tree. In: "a dungeon system with
-instanced portals, a boss, and loot." Out: ordered requirements the coder builds one at a
-time.
+**Spec quality.** I scored specs with an LLM judge against a rubric built from my own
+hand-written Arcane Gardens docs, and the judge had to quote the spec for every point it
+gave. Same rough idea for both:
 
-**5. Edit model.** An existing file plus an instruction to an incremental edit that still
-compiles. In: `SummonManager.java` and "add a cooldown to `summon()`." Out: a
-SEARCH/REPLACE patch that builds.
+- Hella's spec scored 95.5 and 94.6 in two judge runs (full run from scratch: 290 s).
+- Plain Opus scored 48.9-55.7.
+- On a second case (WarZone Moving Caves) it was 90.0 and 91.2, versus 53.8 for plain Opus.
 
-**The composer** chains Brain to Coder to verify to repair, end to end.
+There is a big caveat. In these evals a simulated owner answers the pipeline's questions
+from about 52 KB of my real Gardens notes, so my own decisions leak in through the
+answers. Plain Opus got no answers. The gap shows that asking the right questions is worth
+a lot, but it overstates what the pipeline does on its own.
 
-## The Brain benchmark
-
-The hardest stage to trust is the Brain, so I built a held-out benchmark for it. Can a
-small model *plan a code change* better than a frontier model?
-
-**Task.** Give it a real intent (an actual commit message) plus the repo's grounded
-context: an index map and the signature skeletons of the top-10 retrieved files at the
-commit's parent. It outputs which files to change and the edit in each.
-
-**Data.** Held-out real commits from my Arcane repos, kept out of training by commit SHA,
-with the files each commit actually changed as ground truth. Plus a few vague probes (real
-repo, unlocatable intent) to test whether it refuses instead of guessing.
-
-**Grading is pure git, no model-as-judge.** Parse the named files, compare to what the
-commit really touched (precision, recall), check the names are real (grounding), check the
-probes (abstention). Same prompt, context, and grader across every variant: the base
-model, a supervised fine-tune, a GRPO stage, and Opus.
-
-**The read.** In my runs, training moved the planner from well below Opus on precision to
-well above it, and it named far fewer files per intent. Opus kept the edge on recall by
-naming more files, which catches more real ones but is wrong more often. The GRPO reward
-also pushed the model toward committing, so it refused vague probes less often than the
-supervised version, a reward-balance problem to fix. The training code and result files
-are not in a public repo yet, so I'm not quoting the numbers here.
+**Plugins that work in-game.** Four generated plugins (Arcane Gardens, Moving Caves, a crop
+contest, a bounty board) all compiled, loaded, and were bot-tested in-game. On Gardens,
+120 of 121 flows passed. The tests found real bugs: a cave selection that always failed,
+a wand that refused every valid block, a prize marked delivered into a full inventory, a
+catch-up loop that slowed boot to 56 s. Each was fixed at the root and the same bot
+scripts were re-run on the rebuilt jars, which passed (the catch-up boot dropped to 10 s).
 
 ## The box
 
-Hella is a code-synthesis tool for Minecraft plugin development (Bukkit/Spigot/Paper).
-No general chat, no other languages, no other domains. Small, well-scoped features are the
-target. Large multi-file features and heavy NMS or packet work need the decomposer plus
-multi-turn repair. And it does not guarantee runtime behavior: code that compiles is not
-proof it behaves right in-game.
+Paper plugins only. No mods, no other languages. "Compiles and loads" is the bar the
+build step checks automatically; whether a plugin plays right still takes the in-game
+bot pass. The headline score comes from my own test cases, judged by a model, with my
+own notes behind the owner answers.
 
 ## Where it's going
 
-The edit model turns the stack into an agentic tool that changes files in place instead of
-rewriting them. A behavioral-feedback loop would close the gap between "compiles" and
-"works."
+The next test is a live run on a new idea, with me answering the questions instead of a
+simulated owner, to see how good the spec is without my notes behind it.
