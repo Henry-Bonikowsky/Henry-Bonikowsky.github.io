@@ -20,5 +20,6 @@
         - Rendered questions 1-3 of 15 verbatim from eval/runs/arcane-gardens-pipeline-v17.questions.md (the scored run) -> public/shots/hella-owner-questions.png (79KB), placed after step 1; build OK, page checked at 1280px.
   - [x] Hero "measured against the frontier" is a vs-frontier claim the research doc says has no published results behind it (Hella numbers removed). Reword to something verifiable.
     - Now "Language-model systems, checked by running them." + lead "build pipelines and agent harnesses around language models, make what they produce prove itself by compiling and running" (Hella compile/load, hermes run gates); no trained-model claim. Build OK; Lighthouse home mobile 99/100 CLS 0; fits at 412px and 1280px.
-  - [ ] ValoBoard (shelved 2026-08-27) is still tier core in the main list; the goal's core five excludes it. Move it to secondary.
+  - [x] ValoBoard (shelved 2026-08-27) is still tier core in the main list; the goal's core five excludes it. Move it to secondary.
+    - tier secondary, order 12.5 (after brim-lineups): built home lists core hella/arcane/hermes/dagogy/emergent-ai, ValoBoard card in grid at 1280px, /projects/valoboard still built; Lighthouse home mobile 99/100, CLS 0.
   - [ ] Each core case study opens with problem -> what he built -> concrete result: check the five summaries/first sections against this and tighten.

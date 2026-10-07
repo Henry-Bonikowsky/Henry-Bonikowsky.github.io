@@ -1,8 +1,8 @@
 ---
 title: ValoBoard
 tagline: A deterministic decision engine for Valorant, built on the game's real map geometry, and shelved when I saw where it led.
-tier: core
-order: 6
+tier: secondary
+order: 12.5
 kind: engine · simulation
 status: Shelved
 stack: [Rust, WASM, TypeScript, Tauri, navmesh, BVH raycasting]
