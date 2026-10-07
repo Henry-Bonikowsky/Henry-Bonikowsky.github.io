@@ -9,6 +9,11 @@
 @font-face { font-family: 'Newsreader'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(/fonts/newsreader.woff2) format('woff2'); }
 @font-face { font-family: 'Newsreader'; font-style: italic; font-weight: 400 500; font-display: swap; src: url(/fonts/newsreader-italic.woff2) format('woff2'); }
 @font-face { font-family: 'Spline Sans Mono'; font-style: normal; font-weight: 400 500; font-display: swap; src: url(/fonts/spline-sans-mono.woff2) format('woff2'); }
+/* metric-matched Georgia fallbacks: no layout shift when the webfonts swap in */
+@font-face { font-family: 'Fraunces Fallback'; src: local('Georgia'); size-adjust: 103.67%; ascent-override: 94.34%; descent-override: 24.6%; line-gap-override: 0%; }
+@font-face { font-family: 'Newsreader Fallback'; font-style: normal; src: local('Georgia'); size-adjust: 93.6%; ascent-override: 78.53%; descent-override: 28.31%; line-gap-override: 0%; }
+@font-face { font-family: 'Newsreader Fallback'; font-style: italic; src: local('Georgia Italic'); size-adjust: 86.03%; ascent-override: 85.44%; descent-override: 30.8%; line-gap-override: 0%; }
+@font-face { font-family: 'Spline Sans Mono Fallback'; src: local('Consolas'); size-adjust: 109.13%; ascent-override: 88.29%; descent-override: 21.67%; line-gap-override: 0%; }
 
 :root {
   /* ---- palette: warm, editorial, Anthropic-adjacent ---- */
@@ -26,9 +31,9 @@
   --accent-wash:#f4e8df; /* accent tint background */
 
   /* ---- type ---- */
-  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-body:    'Newsreader', Georgia, 'Times New Roman', serif;
-  --font-mono:    'Spline Sans Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-display: 'Fraunces', 'Fraunces Fallback', Georgia, 'Times New Roman', serif;
+  --font-body:    'Newsreader', 'Newsreader Fallback', Georgia, 'Times New Roman', serif;
+  --font-mono:    'Spline Sans Mono', 'Spline Sans Mono Fallback', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* fluid type scale */
   --step--1: clamp(0.83rem, 0.80rem + 0.15vw, 0.92rem);
