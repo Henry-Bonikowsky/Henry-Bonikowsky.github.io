@@ -60,6 +60,10 @@ through its own code path, so it would have stayed green even if the shipped min
 component were empty. That is the behavior I built it for, and it is also why it is slow.
 On open-ended, taste-driven work it has much less to offer.
 
+![hermes run log: six rounds where the probe passes 7/7 and the negative control discriminates, but every gate audit returns trustworthy=False with the flaws it found](/shots/hermes-gate-audit.png)
+
+*The real run log from that run: green probes every round, and the gate audit still says no.*
+
 The interesting part was never the throughput. It was building a system that tells you
 exactly what it has and has not proven, the same discipline I want from any agent that
 calls a job finished.
