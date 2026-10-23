@@ -29,7 +29,7 @@ This is where I learned the unglamorous half of engineering.
 
 ## The engine
 
-At the center is **Arcane Sigils**: an 81,000-line, 462-file ability engine. Players
+At the center is **Arcane Sigils**: an 81,000-line, 471-file ability engine. Players
 socket "sigils" into armor and weapons; 77 registered effects fire on 26 trigger types
 (attack, defense, kills, bow hits, a passive tick, and more) with conditional activation by health, biome, or time of
 day.

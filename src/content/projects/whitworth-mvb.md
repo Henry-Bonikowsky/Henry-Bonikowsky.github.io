@@ -41,4 +41,5 @@ the static site and the API.
 ## Where it stands
 
 Live at its own domain. The season's schedule, results, and roster haven't been filled in
-yet, so most sections still say "coming soon."
+yet, so most sections still say "coming soon." A merch storefront with a cart is up too,
+but ordering isn't open yet: placing an order is a stub that shows "Ordering opens soon."
